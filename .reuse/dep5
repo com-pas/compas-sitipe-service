@@ -1,0 +1,20 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: compas-sitipe-service
+Upstream-Contact: Pascal Wilbrink <pascal.wilbrink@alliander.com>
+Source: https://github.com/com-pas/compas-sitipe-service
+
+Files: app/src/main/docker/*
+Copyright: 2023 Alliander N.V.
+License: Apache-2.0
+
+Files: .mvn/wrapper/*
+Copyright: 2023 Alliander N.V.
+License: Apache-2.0
+
+Files: doc/images/*
+Copyright: 2023 Alliander N.V.
+License: Apache-2.0
+
+Files: doc/drawio/*
+Copyright: 2023 Alliander N.V.
+License: Apache-2.0
