@@ -95,7 +95,7 @@ jobs:
           -Dsonar.pullrequest.key=${{ fromJson(steps.get_pr_data.outputs.data).number }} \
           -Dsonar.pullrequest.base=${{ fromJson(steps.get_pr_data.outputs.data).base.ref }} \
           -Dsonar.scm.revision=${{ github.event.workflow_run.head_sha }} \
-          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
     - name: Build and analyze (Push)
       if: ${{ github.event.workflow_run.event == 'push' }}
       env:
@@ -106,4 +106,4 @@ jobs:
           ${{ steps.sonar_env.outputs.sonar_opts }} \
           -Dsonar.scm.revision=${{ github.event.workflow_run.head_sha }} \
           -Dsonar.branch.name=${{ github.event.workflow_run.head_branch }} \
-          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
