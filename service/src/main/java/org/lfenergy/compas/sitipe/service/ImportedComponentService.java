@@ -15,13 +15,8 @@ import javax.transaction.Transactional;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
-import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
-import java.util.zip.ZipInputStream;
 
 @ApplicationScoped
 public class ImportedComponentService {
@@ -49,28 +44,26 @@ public class ImportedComponentService {
             throw new NotFoundException("Imported BT Component not found");
         }
 
+        return new ImportedDataDTO(this.getData(importedComponent));
+    }
+
+    private String getData(final ImportedComponent importedComponent) {
         final ByteArrayInputStream bais = new ByteArrayInputStream(importedComponent.getData());
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final InflaterInputStream iis = new InflaterInputStream(bais);
 
-        StringBuilder result = new StringBuilder();
-        byte[] buffer = new byte[5];
-
-        int rlen = -1;
+        int data;
+        int stopByte = -1;
 
         try {
-            while ((rlen = iis.read(buffer)) != -1) {
-                result.append(new String(Arrays.copyOf(buffer, rlen), StandardCharsets.ISO_8859_1));
+            while (stopByte != (data = iis.read())) {
+                baos.write(data);
             }
         } catch (IOException e) {
             throw new InternalServerErrorException(e);
         }
 
-        return new ImportedDataDTO(
-            new String(result.toString().getBytes(), StandardCharsets.UTF_8)
-                .replaceAll("[^\\x00-\\x7F]", "")
-        );
-
-
+        return baos.toString();
     }
 
     @Transactional

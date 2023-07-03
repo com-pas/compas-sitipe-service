@@ -89,6 +89,21 @@ class ImportedComponentServiceTest {
     }
 
     @Test
+    void itShouldGetByIdWithSpecialCharacters() throws IOException {
+        final Integer id = 1;
+        final String data = "<temperature><message>It's currently 5°C outside!</message><northpole> 1μ°C</northpole></temperatur>";
+        ImportedComponent importedComponent = new ImportedComponent();
+        importedComponent.setId(id);
+        importedComponent.setData(compress(data.getBytes(StandardCharsets.UTF_8)));
+
+        when(importedComponentRepository.getById(id))
+                .thenReturn(importedComponent);
+
+        ImportedDataDTO result = sut.getImportedComponentData(id);
+
+        assertEquals(data, result.getData());
+    }
+    @Test
     void itShouldThrowErrorWhenImportedComponentNotFound() {
         when(importedComponentRepository.getById(any())).thenReturn(null);
         assertThrows(RuntimeException.class, () -> sut.getImportedComponentData(1));
