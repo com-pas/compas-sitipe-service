@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Alliander N.V.
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package org.lfenergy.compas.sitipe.rest.exception;
 
 import jakarta.ws.rs.WebApplicationException;
