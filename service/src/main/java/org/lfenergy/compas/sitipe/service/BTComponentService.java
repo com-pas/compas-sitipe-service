@@ -4,11 +4,12 @@
 
 package org.lfenergy.compas.sitipe.service;
 
+import jakarta.transaction.Transactional;
 import org.lfenergy.compas.sitipe.data.repository.BTComponentRepository;
 import org.lfenergy.compas.sitipe.dto.BTComponentDTO;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
@@ -23,6 +24,7 @@ public class BTComponentService {
         this.btComponentRepository = btComponentRepository;
     }
 
+    @Transactional
     public List<BTComponentDTO> getBTComponentsByBayTypicalAccessId(final String accessId) {
         return btComponentRepository.findBayTypicalComponentsByTypicalAccessId(accessId)
             .stream()

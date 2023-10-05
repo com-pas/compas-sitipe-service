@@ -9,11 +9,11 @@ import org.lfenergy.compas.sitipe.data.repository.ImportedComponentRepository;
 import org.lfenergy.compas.sitipe.dto.ImportedComponentDTO;
 import org.lfenergy.compas.sitipe.dto.ImportedDataDTO;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.NotFoundException;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.InternalServerErrorException;
+import jakarta.ws.rs.NotFoundException;
 import java.io.*;
 import java.util.List;
 import java.util.zip.InflaterInputStream;
@@ -30,6 +30,7 @@ public class ImportedComponentService {
         this.importedComponentRepository = importedComponentRepository;
     }
 
+    @Transactional
     public List<ImportedComponentDTO> getByAccessId(final String accessId) {
         return importedComponentRepository.getByAccessId(accessId)
             .stream()
@@ -37,6 +38,7 @@ public class ImportedComponentService {
             .toList();
     }
 
+    @Transactional
     public ImportedDataDTO getImportedComponentData(final Integer id) {
         final ImportedComponent importedComponent = this.getEntity(id);
 
@@ -67,7 +69,7 @@ public class ImportedComponentService {
     }
 
     @Transactional
-    private ImportedComponent getEntity(final Integer id) {
+    public ImportedComponent getEntity(final Integer id) {
         return importedComponentRepository.getById(id);
     }
 }
