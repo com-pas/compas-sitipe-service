@@ -14,7 +14,7 @@ SPDX-License-Identifier: Apache-2.0
 Siemens SITIPE for CoMPAS
 
 This repository contains an CoMPAS extension in order to integrate with Siemens SITIPE.  
-It is open source software to interact with Siemens SITIPE.
+It is open source software to interact with Siemens SITIPE (developed with version 4.10).
 
 Siemens SITIPE allows users to import an SCD file in order to work as much vendor independent as possible. 
 In order to make that work, the SCD file should contain the required Siemens SITPE extensions. 
