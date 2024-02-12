@@ -143,7 +143,7 @@ Information about how to run and develop for this project check  [Development](.
 
 The environment variables can be set in the container deployment. Examples:
 * [AWS task definition](https://github.com/com-pas/compas-deployment/blob/main/aws/task-executions/compas-sitipe-service.json)
-* [Example docker compose with environment set](https://github.com/com-pas/compas-deployment/blob/main/compas/docker-compose-postgresql.yml)
+* [Example docker-compose with environment variables set](https://github.com/com-pas/compas-deployment/blob/main/compas/docker-compose-postgresql.yml)
 
 ## Security
 
