@@ -141,6 +141,10 @@ Information about how to run and develop for this project check  [Development](.
 | SITIPE_MSSQL_USER | sa | sa |
 | SITIPE_MSSQL_PASSWORD | - | bigStrongPwd123! |
 
+The enviroment variables can be set in the container deployment. Examples:
+* [AWS task](https://github.com/com-pas/compas-deployment/blob/main/aws/task-executions/compas-sitipe-service.json)
+* [Example docker compose with environment set](https://github.com/com-pas/compas-deployment/blob/main/compas/docker-compose-postgresql.yml)
+
 ## Security
 
 To use most of the endpoints the users needs to be authenticated using JWT in the authorization header. There are [4 environment variables](#environment-variables) that can be set in the container to configure the validation/processing of the JWT.
