@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
   pull-requests: write
 
 name: release-please
@@ -61,6 +62,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+    
+      - name: Install Cosign
+        if: ${{ steps.release.outputs.release_created }}
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
 
       - name: Create custom Maven Settings.xml
         if: ${{ steps.release.outputs.release_created }}
@@ -78,3 +83,9 @@ jobs:
         run: ./mvnw -B -s custom_maven_settings.xml -Pnative-image,release clean deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sign Docker image with Cosign
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          DIGEST=$(docker buildx imagetools inspect lfenergy/compas-sitipe-service:${{ steps.release.outputs.version }} --format '{{.Manifest.Digest}}')
+          cosign sign --yes lfenergy/compas-sitipe-service@"${DIGEST}"
